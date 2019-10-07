@@ -1,0 +1,470 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>File I/O and Image Transformations - Rust Top-Down</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../../../favicon.png">
+        <link rel="stylesheet" href="../../../css/variables.css">
+        <link rel="stylesheet" href="../../../css/general.css">
+        <link rel="stylesheet" href="../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../../highlight.css">
+        <link rel="stylesheet" href="../../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../../../index.html">Rust for OO Programmers</a></li><li class="affix"><a href="../../../OVERVIEW.html">Overview from an OO Perspective</a></li><li class="affix"><a href="../../../lessons/LESSONS.html">Lessons</a></li><li><a href="../../../lessons/lesson_one/index.html"><strong aria-hidden="true">1.</strong> Setup And A Function</a></li><li><ol class="section"><li><a href="../../../lessons/lesson_one/ex_function_parameter_return.html"><strong aria-hidden="true">1.1.</strong> Calling a Function</a></li></ol></li><li><a href="../../../lessons/lesson_two/index.html"><strong aria-hidden="true">2.</strong> Standard Lib, Types, Immutability</a></li><li><a href="../../../lessons/lesson_three/index.html"><strong aria-hidden="true">3.</strong> Intro to Traits</a></li><li><a href="../../../lessons/lesson_four/index.html"><strong aria-hidden="true">4.</strong> Enum Wrappers, Option and Matching</a></li><li><a href="../../../lessons/lesson_five/index.html"><strong aria-hidden="true">5.</strong> Error Handling</a></li><li><a href="../../../lessons/lesson_six/index.html"><strong aria-hidden="true">6.</strong> Almighty Iterators</a></li><li><a href="../../../lessons/lesson_seven/index.html"><strong aria-hidden="true">7.</strong> Housekeeping #1</a></li><li><a href="../../../lessons/lesson_eight/index.html"><strong aria-hidden="true">8.</strong> Closures and Lifetime Preview</a></li><li><a href="../../../lessons/lesson_nine/index.html"><strong aria-hidden="true">9.</strong> Lifetime Annotations</a></li><li><a href="../../../lessons/lesson_ten/index.html"><strong aria-hidden="true">10.</strong> Unit Testing</a></li><li><a href="../../../lessons/lesson_eleven/index.html"><strong aria-hidden="true">11.</strong> TBD</a></li><li><a href="../../../lessons/lesson_twelve/index.html"><strong aria-hidden="true">12.</strong> Trait Bounds</a></li><li><a href="../../../lessons/lesson_thirteen/index.html"><strong aria-hidden="true">13.</strong> Constructor Patterns</a></li><li><a href="../../../lessons/lesson_fourteen/index.html"><strong aria-hidden="true">14.</strong> Iterator Patterns</a></li><li><a href="../../../lessons/lesson_fifteen/index.html"><strong aria-hidden="true">15.</strong> Copy/Clone/Sized Traits</a></li><li><a href="../../../lessons/lesson_sixteen/index.html"><strong aria-hidden="true">16.</strong> Closure Patterns</a></li><li><a href="../../../lessons/lesson_seventeen/index.html"><strong aria-hidden="true">17.</strong> Reference Counting and Interior Mutability with RefCell and Rc</a></li><li><a href="../../../lessons/lesson_eighteen/index.html"><strong aria-hidden="true">18.</strong> Bit Fiddling</a></li><li><a href="../../../lessons/lesson_nineteen/index.html"><strong aria-hidden="true">19.</strong> Web Assembly - WASM</a></li><li><a href="../../../lessons/lesson_twenty/index.html"><strong aria-hidden="true">20.</strong> Threads</a></li><li><a href="../../../lessons/lesson_twenty_one/index.html"><strong aria-hidden="true">21.</strong> Async Essentials</a></li><li><a href="../../../lessons/lesson_twenty_two/RustFSExample/index.html" class="active"><strong aria-hidden="true">22.</strong> File I/O and Image Transformations</a></li><li><a href="../../../lessons/lesson_twenty_three/index.html"><strong aria-hidden="true">23.</strong> Unsafe Code</a></li><li class="affix"><a href="../../../misc/contributors.html">Contributors</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rust Top-Down</h1>
+
+                        <div class="right-buttons">
+                            <a href="../../../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#basic-file-io-in-rust" id="basic-file-io-in-rust">Basic File I/O in Rust</a></h1>
+<h2><a class="header" href="#opening-a-file-and-writing-some-data" id="opening-a-file-and-writing-some-data">Opening a file and writing some data</a></h2>
+<pre><pre class="playpen"><code class="language-rust">use std::fs;
+use std::io;
+use std::io::{SeekFrom};
+use std::io::prelude::*;
+
+fn main() {
+    let mut fp = fs::OpenOptions::new()
+        .create(true)
+        .write(true)
+        .open(&quot;test.txt&quot;)
+        .unwrap();
+    
+    fp.write_all(b&quot;1&quot;);
+    fp.write_all(b&quot;2&quot;);
+    fp.write_all(b&quot;3&quot;);
+    fp.seek(SeekFrom::Start(0));
+    fp.write_all(b&quot;4&quot;);
+    fp.write_all(b&quot;5&quot;);
+}
+</code></pre></pre>
+<h3><a class="header" href="#output-file-testtxt" id="output-file-testtxt">Output file (test.txt)</a></h3>
+<pre><code>453
+</code></pre>
+<h3><a class="header" href="#points" id="points">Points</a></h3>
+<ul>
+<li>We use the <code>std::fs::OpenOptions</code> builder class to create a <code>File</code> (file handle object).</li>
+<li><code>create(true)</code> - create a new file if t does not exist</li>
+<li><code>write(true)</code> - open file with write permission</li>
+<li>After calling <code>open(filepath)</code>, the builder class returns <code>Result&lt;File&gt;</code> - we can handle an error here</li>
+<li><code>write_all</code> - get bytes as input, and write to file.</li>
+<li>File handle cursor will be repositioned after calling <code>write_all</code>, but we can manually move it with the <code>seek</code> function (because <code>File</code> implement Trait <code>io::Seek</code>)</li>
+<li><code>seek</code> receives a parameter <code>SeekFrom</code> object in 3 variants
+<ul>
+<li>Start(u64) : Seek from beginning of file</li>
+<li>Current(u64) : Seek from current position of <code>Cursor</code></li>
+<li>End(u64) : Current size of file plus position</li>
+</ul>
+</li>
+<li>The file handle automatically closes after the lifetime of file handle object ends. (In C/C++ we need to call fclose(FILE *fp) manually)</li>
+</ul>
+<h2><a class="header" href="#serializedeserialize-file-by-json" id="serializedeserialize-file-by-json">Serialize/Deserialize file by JSON</a></h2>
+<p>There's a wonderful library called <code>serde_json</code>. With this, we can easily/safely serialize/deserialize structured data to a text format.</p>
+<pre><pre class="playpen"><code class="language-rust">use serde::{Deserialize, Serialize};
+use serde_json::Result;
+use std::fs;
+use std::io::prelude::*;
+
+#[derive(Debug, Serialize, Deserialize)]
+enum Role {
+    Attacker,
+    Support,
+    Tanker
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Player {
+    id: u32,
+    name: String,
+    role: Role
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Party {
+    name: String,
+    members: Vec&lt;Player&gt;
+}
+
+fn main() {
+    let alice = Player { id: 1, name: &quot;Alice&quot;.to_string(), role: Role::Support };
+    let bob = Player { id: 2, name: &quot;Bob&quot;.to_string(), role: Role::Tanker };
+    let prim = Player { id: 3, name: &quot;Primula&quot;.to_string(), role: Role::Attacker };
+
+    let x = Party { name: &quot;For Fun&quot;.to_string(), members: vec!(alice, bob, prim) };
+
+    let json = serde_json::to_string(&amp;x).unwrap();
+    println!(&quot;{}&quot;, json);
+    println!();
+
+    {
+        let mut fp = fs::OpenOptions::new()
+            .create(true)
+            .write(true)
+            .open(&quot;party.json&quot;)
+            .unwrap();
+    
+        fp.write_all(json.as_bytes());
+    }
+
+    let mut fp = fs::OpenOptions::new()
+        .read(true)
+        .open(&quot;party.json&quot;)
+        .unwrap();
+    
+    let mut buffer = String::new();
+    fp.read_to_string(&amp;mut buffer);
+
+    let x_ds: Party = serde_json::from_str(&amp;buffer).unwrap();
+    println!(&quot;{:?}&quot;, x_ds);
+}
+</code></pre></pre>
+<h3><a class="header" href="#points-1" id="points-1">Points</a></h3>
+<ul>
+<li>We use <code>serde_json::to_string(&amp;str)</code> to encode struct to JSON, and in the same way, we use <code>serde_json::from_str(&amp;str)</code> to decode JSON back to struct.</li>
+<li>To make structs serializable with serde, we need to <code>#[derive()]</code> the macro called <code>Serialize</code> and <code>Deserialize</code> for deserializing.</li>
+</ul>
+<h2><a class="header" href="#binary-file-with-rust" id="binary-file-with-rust">Binary File with Rust</a></h2>
+<p>Saving a struct with Binary-Encoding in Rust can be done using library called <code>bincode</code> combined with <code>serde</code>'s macro. We migrate our previous code as follows:</p>
+<pre><pre class="playpen"><code class="language-rust">use serde::{Deserialize, Serialize};
+use std::fs;
+use std::io::prelude::*;
+use std::io::SeekFrom;
+
+#[derive(Debug, Serialize, Deserialize)]
+enum Role {
+    Attacker,
+    Support,
+    Tanker
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Player {
+    id: u32,
+    name: String,
+    role: Role,
+    money: u32
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Party {
+    name: String,
+    members: Vec&lt;Player&gt;
+}
+
+fn main() {
+    let alice = Player { id: 10, name: &quot;Alice&quot;.to_string(), role: Role::Support, money: 10 };
+    let bob = Player { id: 1000, name: &quot;Bob&quot;.to_string(), role: Role::Tanker, money: 255 };
+    let prim = Player { id: 100000, name: &quot;Primula&quot;.to_string(), role: Role::Attacker, money: 1000 };
+
+    let x = Party { name: &quot;For Fun&quot;.to_string(), members: vec!(alice, bob, prim) };
+
+    let bin = bincode::serialize(&amp;x).unwrap();
+    println!(&quot;{:?}&quot;, bin);
+    println!();
+
+    let mut fp = fs::OpenOptions::new()
+        .create(true)
+        .write(true)
+        .open(&quot;party.dat&quot;)
+        .unwrap();
+
+    fp.write_all(&amp;bin);
+}
+</code></pre></pre>
+<h3><a class="header" href="#points-2" id="points-2">Points</a></h3>
+<ul>
+<li>Because the output file <code>party.dat</code> is binary file, we cannot open normally in a basic Text Editor (Actually, we can open but it may display badly and/or be missing lots of information)</li>
+<li>To properly open binary files, we use a <code>Hex Editor</code>. there are many free ones:
+<ul>
+<li><a href="https://mh-nexus.de/en/hxd/">HxD</a></li>
+<li><a href="https://hexed.it/">Online Hex Editor</a></li>
+</ul>
+</li>
+</ul>
+<h3><a class="header" href="#understanding-binary-encoding" id="understanding-binary-encoding">Understanding Binary Encoding</a></h3>
+<p>Let's dig a bit deeper on the resulting <code>bincode</code> serialization.</p>
+<p><img src="/hex.png" alt="Data in Hex" /></p>
+<p>For those who may not familiar with hex editors, the two numbers in each of the columns represent one byte in file (in Haxadecimal). Let's look at our serialized struct <code>Party</code> again.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+struct Party {
+    name: String,
+    members: Vec&lt;Player&gt;
+}
+#}</code></pre></pre>
+<p>And let's compare with the first 15 bytes for file</p>
+<pre><code>07 00 00 00 00 00 00 00 46 6F 72 20 46 75 6E
+</code></pre>
+<p>The part <code>46 6F 72 20 46 75 6E</code> in the bytes represents the ASCII number of String 'For Fun'. The first 8 bytes represents the length of this String. Someone may ask why use 8 bytes to store, it might be Rust (or bincode) use <code>u64</code> data format to store the lenght of string. (00 00 00 00 00 00 00 07 is 7 in decimal format)</p>
+<p>Another interesting, why is its order reversed?! The reason is bincode respects the machine's <code>Memory Layout</code>, It's use the same layout, <code>u64</code>, as RAM storage.</p>
+<p>Ok, let's see for next 8 bytes. It's <code>u64</code> again.  By using method above, we got </p>
+<p>03 00 00 00 00 00 00 00 ---&gt; 3 (decimal)</p>
+<p>This is the size of <code>Party.members</code> vector. <code>bincode</code> stores the size of vector before the real vector's content.</p>
+<p>Now that we are familiar with binary files, let's take the next one more quickly. The first item in vector is a struct with data:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+Player { 
+    id: 10,      // u32
+    name: &quot;Alice&quot;.to_string(),      // lenght = 5
+    role: Role::Support,        // u32's Enum (by default)
+    money: 10                   // u32
+}
+#}</code></pre></pre>
+<p>And here how stored in Hex form:</p>
+<p><img src="/hex_alice.png" alt="Alice's Hex data" /></p>
+<pre><code>0x0000000A = 10             ; id
+0x0000000000000005 = 5      ; String.len()
+0x416C696365 = 'Alice'      ;
+0x00000001 = 1              ; Role::Support
+0x0000000A = 10             ; money
+</code></pre>
+<p>I will leave the rest of the data for you to practice.</p>
+<h2><a class="header" href="#cautions-about-using-binary-file" id="cautions-about-using-binary-file">Cautions about using binary file</a></h2>
+<p>Binary files are smaller, and in most cases, faster than json serialization but there's some considerations: </p>
+<ul>
+<li>Binary files are hard to read by humans and cannot be modified by text editors.</li>
+<li>If we change the structure of data, we can no longer use the saved file (without conversion or tweaking the read/write logic). For example:
+<ul>
+<li>Swap the order of struct's member</li>
+<li>Change the size of struct's member</li>
+</ul>
+</li>
+<li>It lacks a universal standard format comparing to JSON.</li>
+</ul>
+<h1><a class="header" href="#homework-playing-with-a-bmp-file" id="homework-playing-with-a-bmp-file">Homework (Playing with a BMP File)</a></h1>
+<p>Let's create an <code>inverse</code> filter for <code>Bitmap File</code> (.bmp) by using Binary File I/O. </p>
+<p>Your program reads an input bmp file, and creates an output bmp file, with the inverse filter applied.</p>
+<p><img src="filter.png" alt="Filter result" /></p>
+<p>The Bitmap file is one of uncompressed image format. In this case we use a normal <code>24-bit RGB</code> image.
+The File header(the beginning of file) of BMP File is 14 bytes long with this information</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+{
+    // MagicNumber: 2 bytes
+    // FileSize: 4 bytes
+    // Reserved: 4 bytes (not important)
+    // StartAddress: 4 bytes
+}
+#}</code></pre></pre>
+<p>two important values in here are <code>FileSize</code> and <code>StartAddress</code>.</p>
+<p><code>FileSize</code> is the size of BMP File on disk, <code>StartAddress</code> is the start address of pixel data.</p>
+<p>if you use hex editor to see the content at <code>StartAddress</code>, you will see each pixel data store in this pattern:</p>
+<pre><code>[blue: u8] [green: u8] [red: u8] ....
+</code></pre>
+<p>The color in each RGB channel is stored in reverse order. And the byte order is from last row of pixels to first row of pixel. (Anyway, this is not important for our exercise)</p>
+<p>To create an inverse filter, we have to invert the bit of pixel data in every bytes. (0 to 1, 1 to 0)</p>
+<p>In rust, we can use the bitwise logical operator <code>!</code> </p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let mut x: u8 = 254u8;
+x = !x              // x is now 1
+
+// 254 (1111 1110) ---&gt; 1 (0000 0001)
+#}</code></pre></pre>
+<p>Ok, I hope you now have enough information to implement this program.</p>
+<h3><a class="header" href="#hint" id="hint">Hint</a></h3>
+<ul>
+<li>In this case, we can skip working on Bitmap's DIB part (the content after header and before pixel data), but we still have to copy all of those bytes to output file.</li>
+<li>You may have to use <code>seek</code> function</li>
+</ul>
+<p>More information about bitmap, you can look at <a href="https://en.wikipedia.org/wiki/BMP_file_format">wiki</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../../lessons/lesson_twenty_one/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../../lessons/lesson_twenty_three/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../../../lessons/lesson_twenty_one/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../../../lessons/lesson_twenty_three/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        <script src="../../../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        
+        <script src="../../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

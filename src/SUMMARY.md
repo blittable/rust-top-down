@@ -1,6 +1,6 @@
 # Summary
 
-[Rust for OO Programmers](README.md)
+[Rust Top-Down](README.md)
 [Overview from an OO Perspective](OVERVIEW.md)
 [Lessons](lessons/LESSONS.md) 
 - [Setup And A Function](lessons/lesson_one/README.md)
@@ -26,7 +26,5 @@
 - [Threads](./lessons/lesson_twenty/README.md))
 - [Async Essentials](./lessons/lesson_twenty_one/README.md))
 - [File I/O and Image Transformations](./lessons/lesson_twenty_two/RustFSExample/README.md))
-- [Unsafe Code](./lessons/lesson_twenty_three/README.md))
-
 
 [Contributors](misc/contributors.md)
